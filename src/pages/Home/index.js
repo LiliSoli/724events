@@ -18,8 +18,8 @@ const Page = () => {
 if (!data || !data.events || data.events.length === 0) {
   return null;
 }
-
-const byDateDesc = data?.events?.sort((evtA, evtB) =>
+ 
+const byDateDesc = data?.events?.slice().sort((evtA, evtB) =>
   new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
 );
 
@@ -130,6 +130,7 @@ const lastEvent = byDateDesc[0] || null;
         <EventCard
           imageSrc={lastEvent.cover}
           title={lastEvent.title}
+          imageAlt={lastEvent.description}
           date={new Date(lastEvent.date)}
           small
           label="boom"

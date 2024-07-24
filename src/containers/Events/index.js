@@ -26,6 +26,7 @@ const EventList = () => {
     }
     return false;
   });
+
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
@@ -52,6 +53,7 @@ const EventList = () => {
                     onClick={() => setIsOpened(true)}
                     imageSrc={event.cover}
                     title={event.title}
+                    imageAlt={event.description}
                     date={new Date(event.date)}
                     label={event.type}
                   />
