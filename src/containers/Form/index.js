@@ -28,8 +28,8 @@ const Form = ({ onSuccess, onError }) => {
     <form onSubmit={sendContact}>
       <div className="row">
         <div className="col">
-          <Field placeholder="" label="Nom" />
-          <Field placeholder="" label="Prénom" />
+          <Field className="capitalize" placeholder="" label="Nom" />
+          <Field className="capitalize" placeholder="" label="Prénom" />
           <Select
             selection={["Personnel", "Entreprise"]}
             onChange={() => null}
