@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import { DataProvider, api, useData } from "./index";
 
 describe("When a data context is created", () => {
@@ -8,11 +8,13 @@ describe("When a data context is created", () => {
       const { data } = useData();
       return <div>{data?.result}</div>;
     };
-    render(
-      <DataProvider>
-        <Component />
-      </DataProvider>
-    );
+    await act(async () => {
+      render(
+        <DataProvider>
+          <Component />
+        </DataProvider>
+      );
+    });
     const dataDisplayed = await screen.findByText("ok");
     expect(dataDisplayed).toBeInTheDocument();
   });
@@ -25,11 +27,13 @@ describe("When a data context is created", () => {
         const { error } = useData();
         return <div>{error}</div>;
       };
-      render(
-        <DataProvider>
-          <Component />
-        </DataProvider>
-      );
+      await act(async () => {
+        render(
+          <DataProvider>
+            <Component />
+          </DataProvider>
+        );
+      });
       const dataDisplayed = await screen.findByText("error on calling events");
       expect(dataDisplayed).toBeInTheDocument();
     });
@@ -45,10 +49,12 @@ describe("When a data context is created", () => {
       const { error } = useData();
       return <div>{error}</div>;
     };
-    render(
-      <DataProvider>
-        <Component />
-      </DataProvider>
-    );
+    act(async () => {
+      render(
+        <DataProvider>
+          <Component />
+        </DataProvider>
+      );
+    });
   });
 });
