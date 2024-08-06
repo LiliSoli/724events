@@ -14,7 +14,7 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const [modalContent, setModalContent] = useState(null);
+  const [modalContent, setModalContent] = useState("");
 
   const setMessageModal = (message) => {
     setModalContent(
@@ -25,17 +25,7 @@ const Page = () => {
     );
   };
 
-  const { data } = useData();
-
-if (!data || !data.events || data.events.length === 0) {
-  return null;
-}
- 
-const byDateDesc = data?.events?.slice().sort((evtA, evtB) =>
-  new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
-);
-
-const lastEvent = byDateDesc[0] || null;
+  const { last } = useData();
 
   return <>
     <header>
@@ -137,14 +127,16 @@ const lastEvent = byDateDesc[0] || null;
     <footer className="row">
       <div className="col presta">
         <h3>Notre dernière prestation</h3>
-        <EventCard
-          imageSrc={lastEvent.cover}
-          title={lastEvent.title}
-          imageAlt={lastEvent.description}
-          date={new Date(lastEvent.date)}
-          small
-          label="boom"
-        />
+        {last && (
+            <EventCard
+              imageSrc={last.cover}
+              title={last.title}
+              imageAlt={last.description}
+              date={new Date(last.date)}
+              small
+              label={last.type}
+            />
+          )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
